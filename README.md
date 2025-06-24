@@ -44,15 +44,4 @@ pip install -r requirements.txt
 # Run the app
 python app.py
 
-##📂 Folder Structure
-movie-recommender/
-├── app.py
-├── requirements.txt
-├── movies.pkl
-├── similarity.pkl
-├── static/
-│   └── style.css
-├── templates/
-│   ├── index.html
-│   └── result.html
-└── README.md
+
