@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Recommender</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        form {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            max-height: 65vh;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .movie-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
+        }
+
+        .movie-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        input[type="checkbox"] {
+            margin-bottom: 10px;
+            transform: scale(1.3);
+        }
+
+        p {
+            margin: 0;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .submit-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Select Any 5 Movies</h1>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/recommend" onsubmit="return checkLimit();">
+        <div class="grid">
+            {% for m in movie_list %}
+            <div class="movie-item">
+                <input type="checkbox" name="movie" value="{{ m }}" onclick="limitSelection(this)">
+                <p>{{ m }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="submit-btn" type="submit">Get Recommendations</button>
+    </form>
+
+    <script>
+        function limitSelection(checkbox) {
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checked.length > 5) {
+                checkbox.checked = false;
+                alert("You can only select 5 movies.");
+            }
+        }
+
+        function checkLimit() {
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checked.length !== 5) {
+                alert("Please select exactly 5 movies.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

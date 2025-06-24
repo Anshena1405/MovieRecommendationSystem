@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Your Selected Movies</h1>
+        <ul class="selected-list">
+            {% for m in selected_movies %}
+                <li>{{ m }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>✅ You Might Also Like</h2>
+        <ul class="recommendation-list">
+            {% for movie in recommendations %}
+                <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+
+        <a class="back-button" href="/">⬅ Back to Selection</a>
+    </div>
+</body>
+</html>
